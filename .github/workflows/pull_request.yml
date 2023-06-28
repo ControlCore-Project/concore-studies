@@ -12,6 +12,12 @@ on:
       upstreamRepo:
         description: 'Upstream repo'
         required: true
+      botRepo:
+        description: 'bot repo'
+        required: true
+      repo:
+        description: 'repo name'
+        required: true
 
 jobs:
   create-pull-request:
@@ -20,7 +26,6 @@ jobs:
     steps:
       - name: Create PR
         run: |
-          echo "${GITHUB_REF#refs/heads/}"
-          gh pr create --repo "${GITHUB_REPOSITORY}" --head "${GITHUB_REF#refs/heads/}" --base "${{ github.event.inputs.upstreamRepo }}:main" --title "${{ github.event.inputs.title }}" --body "${{ github.event.inputs.body }}"
+          gh pr create --repo ${{ github.event.inputs.upstreamRepo }}/${{ github.event.inputs.repo }} --head ${{ github.event.inputs.botRepo }}:${{ github.ref }} --base main --title "${{ github.event.inputs.title }}" --body "${{ github.event.inputs.body }}"
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
