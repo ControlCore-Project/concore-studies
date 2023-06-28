@@ -21,6 +21,6 @@ jobs:
       - name: Create PR
         run: |
           echo "${GITHUB_REF#refs/heads/}"
-          gh pr create --repo ${{GITHUB_REPOSITORY}} --head ${GITHUB_REF#refs/heads/} --base ${{ github.event.inputs.upstreamRepo }}:main --title "${{ github.event.inputs.title }}" --body "${{ github.event.inputs.body }}"
+          gh pr create --repo ${GITHUB_REPOSITORY} --head ${GITHUB_REF#refs/heads/} --base ${{ github.event.inputs.upstreamRepo }}:main --title "${{ github.event.inputs.title }}" --body "${{ github.event.inputs.body }}"
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
